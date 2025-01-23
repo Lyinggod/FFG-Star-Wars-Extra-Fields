@@ -7,7 +7,7 @@ It allows for adding of additional fields to actors, placed below the derived va
 
 Fields are defined via Configuration Settings and the _Custom Fields_ dialog.
 
-<img src="https://github.com/user-attachments/assets/e38afdd8-6d45-4dcd-a6ae-9df44a981384" width="500">
+<img src="https://github.com/user-attachments/assets/efb248ea-dd9e-4fd0-b7c9-563229111147" width="500">
 
 **Group Name:**
 This groups Field Names into a single group.
