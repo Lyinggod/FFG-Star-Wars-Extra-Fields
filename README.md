@@ -5,17 +5,24 @@ It allows for adding of additional fields to actors, placed below the derived va
 
 <img src="https://github.com/user-attachments/assets/91f36c04-50cc-4a4a-b932-68ba08b000de" width="500">
 
-Fields are defined via Configuration Settings and the _Custom Fields_ dialog
+Fields are defined via Configuration Settings and the _Custom Fields_ dialog.
 
 <img src="https://github.com/user-attachments/assets/e38afdd8-6d45-4dcd-a6ae-9df44a981384" width="500">
 
 **Group Name:**
-This groups Field Names into a single group
+This groups Field Names into a single group.
 
 ![image](https://github.com/user-attachments/assets/4dc2b168-be8c-4ccb-b741-befe542cba39)
 
-Leave group name empty to create a non-group field
+Leave group name empty to create a non-group field. The system will assign a "placeholder" value which will be visible when the _Custom Field_ dialog is re-opened.
 
 ![image](https://github.com/user-attachments/assets/9dba1a15-3fce-46f1-91bf-d41b617f895d)
 
-The order of the fields on the actor is determined by the order of the fields in the _Custom Fields_ dialog. which can be order by drag and drop.
+The order of the fields on the actor is determined by the re-order of the fields in the _Custom Fields_ dialog, which can be order by drag and drop.
+
+# Formating
+
+Leaving **Field Name** blank will result in a empty "space" being created which can used for formatting as shown in the example pictures, above.
+
+# Renaming Groups or Field Names
+Renaming either _Group Names_ or _Field Names_ will result in any data store on the actor being reset to 0
