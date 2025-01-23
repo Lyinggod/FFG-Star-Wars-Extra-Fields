@@ -165,6 +165,7 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
     if (!fieldsByGroup[f.group]) fieldsByGroup[f.group] = [];
     fieldsByGroup[f.group].push(f);
   });
+  
 
   // For each group, create either a "split" or "single" resource block
   for (const [groupName, groupFields] of Object.entries(fieldsByGroup)) {
@@ -186,8 +187,8 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
       </div>
     `);
  
-    if (groupName.toLowerCase() === "blank") resourceDiv = $(`<div class="resource"></div>`);
-  
+    if (groupFields.map(f => f.name).join(", ") == "") resourceDiv = $(`<div class="resource"></div>`);
+  console.info(`groupFields.map(f => f.name).join(", ")`,groupFields.map(f => f.name).join(", "))
     const blockAttribute = resourceDiv.find(".block-attribute");
 
     // For each field in this group, create a .block-value row
@@ -196,12 +197,13 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
 
       // Value is from the actor flag
       const labelStart = !groupName.toLowerCase().startsWith("remove:") ? `<label for="${uniqueId}">${field.name}</label>` : "";
-      const row = $(`
+      let row = $(`
         <div class="block-value">
           ${labelStart}
           <input type="number" name="${uniqueId}" value="${field.value}" id="${uniqueId}" data-group="${field.group}" data-name="${field.name}" />
         </div>
       `);
+	  row = field.name.toLowerCase() == "blank" ? "" : row;
 
       // Add listener for changes so we update the relevant flag
       row.find("input").on("change", async (ev) => {
@@ -331,4 +333,5 @@ class CustomFieldsConfigDialog extends FormApplication {
     // Notify the user of the successful update
     ui.notifications.info("Custom fields updated!");
   }
+
 }
