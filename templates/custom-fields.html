@@ -1,0 +1,120 @@
+
+<form class="extraStarWarsFields">
+Drag <i class="fa fa-bars" aria-hidden="true"></i> to re-order groups/fields. Determines ordering of groups and names on actor. <i>Group Name</i> is used to group find sets similar to "wound:current/threshold". Use text "blank" in <i>Group Name</i> field to create blank area in the field group. Leave <b>Group Name</i> to remove secondary title.
+<br><br>
+  <div class="custom-fields-list">
+      <div style="display: flex;">
+  <div style=" margin-left: 67px; font-size:18px;"><b>Group Name</b></div>
+  <div style="margin-left:130px; font-size:18px"><b>Field Name</b></div>
+  
+</div>
+    {{#each customFields as |field index|}}
+      <div class="custom-field-row" draggable="true" style="display: flex; align-items: center; margin-bottom: 5px; border: 1px solid #000; padding: 5px; cursor: move;">
+        <i class="fa fa-bars" aria-hidden="true" style="margin-left:20px"></i><input class="extraCustomRows" type="text" name="group_{{index}}" placeholder="Field Group" value="{{field.group}}" >
+        <input  class="extraCustomRows" type="text" name="name_{{index}}" placeholder="Field Name" value="{{field.name}}">
+        <button type="button" class="delete-row" title="Delete Field" style="margin-left:30px; width:50px;">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    {{/each}}
+  </div>
+
+  <button type="button" class="add-row" style="margin-top: 10px;">
+    <i class="fas fa-plus"></i> Add Another
+  </button>
+
+  <div style="margin-top: 10px;">
+    <button type="submit">Save</button>
+  </div>
+</form>
+
+<script type="text/javascript">
+  // This script runs once the template is rendered in the FormApplication context.
+  Hooks.once("renderCustomFieldsConfigDialog", (app, html, data) => {
+    const addRowBtn = html.find(".add-row");
+    const list = html.find(".custom-fields-list");
+
+    let dragged = null;
+
+    // Function to add a new row
+    const addRow = (name = "", group = "") => {
+      const index = list.find(".custom-field-row").length;
+      const row = $(`
+        <div class=" custom-field-row" draggable="true" style="display: flex; align-items: center; margin-bottom: 5px; border: 1px solid #000; padding: 5px; cursor: move;">
+          <i class="fa fa-bars" aria-hidden="true" style="margin-left:20px"></i><input  class="extraCustomRows" type="text" name="group_${index}" placeholder="Field Group" value="${group}" >
+          <input  class="extraCustomRows" type="text" name="name_${index}" placeholder="Field Name" value="${name}">
+          <button type="button" class="delete-row" title="Delete Field" style="margin-left:30px; width:50px;">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `);
+      list.append(row);
+    };
+
+    // Event listener for adding a new row
+    addRowBtn.on("click", () => {
+      addRow();
+    });
+
+    // Event delegation for deleting a row
+    html.on("click", ".delete-row", function() {
+      const row = $(this).closest(".custom-field-row");
+      row.remove();
+      updateRowIndices();
+    });
+
+    // Function to update input names based on current order
+    const updateRowIndices = () => {
+      list.find(".custom-field-row").each(function(i) {
+        $(this).find('input[name^="name_"]').attr('name', `name_${i}`);
+        $(this).find('input[name^="group_"]').attr('name', `group_${i}`);
+      });
+    };
+
+    // Drag and Drop Event Handlers
+    list.on("dragstart", ".custom-field-row", function(e) {
+      dragged = this;
+      e.originalEvent.dataTransfer.effectAllowed = "move";
+      e.originalEvent.dataTransfer.setData("text/html", this.outerHTML);
+      $(this).css("opacity", "0.4");
+    });
+
+    list.on("dragover", ".custom-field-row", function(e) {
+      e.preventDefault();
+      e.originalEvent.dataTransfer.dropEffect = "move";
+      return false;
+    });
+
+    list.on("dragenter", ".custom-field-row", function(e) {
+      $(this).addClass("over");
+    });
+
+    list.on("dragleave", ".custom-field-row", function(e) {
+      $(this).removeClass("over");
+    });
+
+    list.on("drop", ".custom-field-row", function(e) {
+      e.stopPropagation(); // Stops some browsers from redirecting.
+      e.preventDefault();
+
+      if (dragged !== this) {
+        // Insert the dragged element before the drop target
+        $(this).before($(dragged));
+
+        // Update the row indices after reordering
+        updateRowIndices();
+      }
+      return false;
+    });
+
+    list.on("dragend", ".custom-field-row", function(e) {
+      $(this).css("opacity", "1");
+      list.find(".custom-field-row").removeClass("over");
+    });
+
+    // Initialize drag-and-drop for existing rows
+    list.find(".custom-field-row").each(function() {
+      // No additional initialization needed as event delegation handles it
+    });
+  });
+</script>
