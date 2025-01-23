@@ -1,7 +1,7 @@
 # FFG-Star-Wars-Extra-Field
-This is a module for the FFG Star Wars system for foundry. 
-
 This module was written with AI as I am not much of programmer.
+
+This is a module for the FFG Star Wars system for foundry. 
 
 It allows for adding of additional fields to actors, placed below the derived values.
 
@@ -16,7 +16,7 @@ This groups Field Names into a single group.
 
 ![image](https://github.com/user-attachments/assets/4dc2b168-be8c-4ccb-b741-befe542cba39)
 
-Leave group name empty to create a non-group field. The system will assign a "placeholder" value which will be visible when the _Custom Field_ dialog is re-opened.
+Leave _Group Name_ empty to create a non-group field. The system will assign a "placeholder" value which will be visible when the _Custom Field_ dialog is re-opened.
 
 ![image](https://github.com/user-attachments/assets/9dba1a15-3fce-46f1-91bf-d41b617f895d)
 
