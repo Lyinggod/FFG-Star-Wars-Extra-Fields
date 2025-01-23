@@ -1,6 +1,8 @@
 # FFG-Star-Wars-Extra-Field
 This is a module for the FFG Star Wars system for foundry. 
 
+This module was written with AI as I am not much of programmer.
+
 It allows for adding of additional fields to actors, placed below the derived values.
 
 <img src="https://github.com/user-attachments/assets/91f36c04-50cc-4a4a-b932-68ba08b000de" width="500">
