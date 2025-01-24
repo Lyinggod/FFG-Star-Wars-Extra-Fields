@@ -1,4 +1,4 @@
-# FFG-Star-Wars-Extra-Field
+# Star Wars Extra Fields
 This module was written with AI as I am not much of programmer.
 
 This is a module for the FFG Star Wars system for foundry. 
