@@ -28,3 +28,6 @@ Leaving **Field Name** blank will result in a empty "space" being created which 
 
 # Renaming Groups or Field Names
 Renaming either _Group Names_ or _Field Names_ will result in any data store on the actor being reset to 0
+
+### Incompatibilities
+This may not work with modules that change the default actor template
