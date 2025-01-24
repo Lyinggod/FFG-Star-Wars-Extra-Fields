@@ -15,7 +15,7 @@ This is a module crafted for the FFG Star Wars system in Foundry VTT. It allows 
 
 ### Installation
 
-1. **Download the Module:** Obtain the latest version from the [GitHub repository](https://github.com/your-repo-url).
+1. **Download the Module:** Obtain the latest version from the [GitHub repository](https://github.com/Lyinggod/lgs-ffg-star-wars-extra-fields/releases)). 
 2. **Install in Foundry:** Import the module into Foundry VTT via the Module Browser or by manually uploading it.
 3. **Activate the Module:** Ensure the module is enabled in your Foundry VTT game settings.
 
