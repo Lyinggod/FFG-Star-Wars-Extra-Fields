@@ -1,6 +1,6 @@
 # Star Wars Extra Fields
 
-Welcome to **Star Wars Extra Fields**, a module crafted for the FFG Star Wars system in Foundry VTT. Whether you're a seasoned developer or new to programming, this module allows you to enhance your actors by adding custom fields beneath their derived values, providing greater depth and customization for your campaigns.
+This is a module crafted for the FFG Star Wars system in Foundry VTT. It allows you to enhance your actors by adding custom fields beneath their derived values, providing greater depth and customization for your campaigns.
 
 <img src="https://github.com/user-attachments/assets/91f36c04-50cc-4a4a-b932-68ba08b000de" width="500">
 
