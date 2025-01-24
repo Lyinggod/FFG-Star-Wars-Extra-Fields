@@ -20,7 +20,7 @@ Leave _Group Name_ empty to create a non-group field. The system will assign a "
 
 ![image](https://github.com/user-attachments/assets/9dba1a15-3fce-46f1-91bf-d41b617f895d)
 
-The order of the fields on the actor is determined by the re-order of the fields in the _Custom Fields_ dialog, which can be order by drag and drop.
+The order of the fields on the actor is determined by the re-order of the fields in the _Custom Fields_ dialog, which can be re-order by drag and drop.
 
 # Formating
 
