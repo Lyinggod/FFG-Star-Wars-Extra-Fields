@@ -58,7 +58,7 @@ This module may not be compatible with other modules that modify the default act
 
 ## Support & Contributions
 
-If you encounter any issues or have suggestions for improvements, please [open an issue](https://github.com/your-repo-url/issues) on the GitHub repository. Contributions are welcome—feel free to submit pull requests or propose new features!
+If you encounter any issues or have suggestions for improvements, please [open an issue](https://github.com/Lyinggod/lgs-ffg-star-wars-extra-fields/issues) on the GitHub repository. Contributions are welcome—feel free to submit pull requests or propose new features!
 
 ---
 
