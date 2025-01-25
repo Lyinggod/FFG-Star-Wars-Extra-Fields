@@ -4,3 +4,60 @@
 	width:200px; 
 	margin-left:30px;
 }
+
+.customFields.main{
+	display: flex; 
+	justify-content: center;
+	width: 100%;
+}
+
+.customFields.minion .flex-group-center{
+	padding-left: 0px;
+}
+
+.customFields.minion .fields1{
+	width: 33%;
+}
+
+.customFields.minion .fields2{
+	width: 66%;
+}
+
+.customFields.minion .fields3{
+	width: 100%;
+}
+
+
+.customFields .fields1{
+	width: 25%
+}
+
+.customFields .fields2{
+	width: 50%
+}
+
+.customFields .fields3{
+	width: 75%
+}
+
+.customFields .flex-group-center{
+	border: 0px;
+	align-items: baseline;
+}
+
+.customFields .grid-2col{
+	gap: 0px;
+}
+
+.customFields .grid{
+	margin-top: -3px!important;
+}
+
+.customFields .resource{
+	margin-bottom: 0px!important;
+	margin-top:0px!important;
+}
+
+.customFields .grid{
+	grid-template-columns: none;
+}

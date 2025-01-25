@@ -4,7 +4,7 @@ const SETTINGS_KEY = "customFields";
 Hooks.once("init", function() {
   console.log(`${MODULE_ID} | Initializing module...`);
 
-  // 1) Register a hidden setting for storing the array of {group, name}
+  // store group name, fild name
   game.settings.register(MODULE_ID, SETTINGS_KEY, {
     name: "Custom Fields",
     scope: "world",
@@ -13,7 +13,7 @@ Hooks.once("init", function() {
     default: []
   });
 
-  // 2) Register a menu that shows a button in Foundry's Configuration Settings
+  // Register dialog
   game.settings.registerMenu(MODULE_ID, "customFieldsMenu", {
     name: "Custom Fields",
     label: "Custom Fields",
@@ -24,9 +24,6 @@ Hooks.once("init", function() {
   });
 });
 
-/* -------------------------------------------- */
-/* 3) Handle hooking into actor creation        */
-/* -------------------------------------------- */
 
 Hooks.on("preCreateActor", async (actor, createData, options, userId) => {
   // Skip if actor is type vehicle
@@ -54,9 +51,6 @@ Hooks.on("preCreateActor", async (actor, createData, options, userId) => {
   });
 });
 
-/* -------------------------------------------- */
-/* 4) Handle hooking into actor sheet rendering */
-/* -------------------------------------------- */
 
 Hooks.on("renderActorSheet", async (app, html, data) => {
   const actor = app.object;
@@ -105,10 +99,6 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
     extraFields = [...extraFields, ...newExtraFields];
   }
 
-  /**
-   * === Modification Starts Here ===
-   * Reorder the extraFields array to match the order in storedFields (global settings)
-   */
 
   // Check if the current order matches the global settings
   const isOrderMatching = storedFields.every((sf, index) => {
@@ -133,11 +123,15 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
     console.log(`${MODULE_ID} | Reordered extraFields for actor: ${actor.name}`);
   }
 
-  /**
-   * === Modification Ends Here ===
-   */
-
   // Now inject HTML into the sheet
+  const customFields = game.settings.get("lgs-extra-fields-for-star-wars", "customFields");
+  const uniqueGroupNames = new Set(customFields.map(field => field.group));
+  console.info("customFields",customFields)
+  const customFieldQty = uniqueGroupNames.size;
+  const divSize = customFieldQty <= 3 ? `fields${customFieldQty}` : "";
+  //const gridSize = customFieldQty <= 4 ? 4 : customFieldQty;
+  const customFieldGrid = `grid grid-${customFieldQty}col` 
+  
   let activeSheet = actor.getFlag("core", "sheetClass");
   let anchorContainers = "";
   let extraPadding = "";
@@ -149,15 +143,28 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
     statsBlock.css('flex-wrap', '');
   } else {
     anchorContainers = html.find('div.header-fields div.container.flex-group-center'); 
+	anchorContainers.parent().css('flex-wrap', '');
+  }
+  
+  if (actor.type == "minion"){
+	  anchorContainers = html.find('div.minion-name div.container'); 
   }
 
   if (!anchorContainers.length) return;
   
-  // We'll add our new container just after the anchor
+  const centerDiv = actor.type != "minion" ? "main" : "";
+   // wrapper for width of custom field area
+   const wrapper = $(`<div ${extraPadding} class="customFields ${actor.type} ${centerDiv}"></div>`);
+  
   const container = $(
-    `<div class="container flex-group-center ${MODULE_ID}-custom-fields"></div>`
+    `<div class="${customFieldGrid} ${divSize} flex-group-center ${MODULE_ID}-custom-fields"></div>`
   );
-  anchorContainers.after(container);
+  
+// Append the inner container to the outer wrapper
+wrapper.append(container);
+
+// Append the wrapper to the anchor containers
+anchorContainers.after(wrapper);
 
   // Group the fields by "group" name
   const fieldsByGroup = {};
@@ -166,8 +173,7 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
     fieldsByGroup[f.group].push(f);
   });
   
-
-  // For each group, create either a "split" or "single" resource block
+   // For each group, create either a "split" or "single" resource block
   for (const [groupName, groupFields] of Object.entries(fieldsByGroup)) {
     // If groupName is empty, treat as single or whatever your logic requires
     const containerClass = (groupFields.length > 1) ? "split" : "single";
@@ -175,7 +181,7 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
     let groupOuput = groupName.startsWith("remove:") ? groupFields.map(f => f.name).join(", ") : groupName;
    
     let resourceDiv = $(`
-      <div ${extraPadding} class="resource ${containerClass}">
+	  <div class="resource ${containerClass}">
         <div class="attribute flex-group-center">
           <div class="block-background">
             <div class="block-title header-title">
@@ -196,7 +202,7 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
       const uniqueId = `${groupName}-${field.name}`.replace(/\s+/g, "_");
 
       // Value is from the actor flag
-      const labelStart = !groupName.toLowerCase().startsWith("remove:") ? `<label for="${uniqueId}">${field.name}</label>` : "";
+      const labelStart = !groupName.toLowerCase().startsWith("remove:") ? `<label for="${uniqueId}" style="font-size:12px;">${field.name}</label>` : "";
       let row = $(`
         <div class="block-value">
           ${labelStart}
@@ -248,9 +254,6 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
   }
 });
 
-/* -------------------------------------------- */
-/* 5) The Dialog that configures custom fields  */
-/* -------------------------------------------- */
 
 class CustomFieldsConfigDialog extends FormApplication {
   constructor(data, options) {
@@ -278,10 +281,6 @@ class CustomFieldsConfigDialog extends FormApplication {
     };
   }
 
-  /**
-   * Helper function to generate a random 16-character alphanumeric string.
-   * Includes both uppercase and lowercase letters.
-   */
   _generateRandomString(length = 16) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -320,15 +319,6 @@ class CustomFieldsConfigDialog extends FormApplication {
     // Save the updated fields to the global settings
     await game.settings.set(MODULE_ID, SETTINGS_KEY, newFields);
 
-    // Optionally, you can notify all actors to re-render their sheets if needed
-    // This ensures that actors immediately reflect the changes in custom fields
-    /*
-      for (let actor of game.actors.entities) {
-        if (actor.type === "vehicle") continue;
-        // Trigger re-render
-        actor.sheet.render(false);
-      }
-    */
 
     // Notify the user of the successful update
     ui.notifications.info("Custom fields updated!");
