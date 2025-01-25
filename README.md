@@ -46,6 +46,24 @@ The display order of fields on an actor is determined by their sequence in the _
 
 To enhance the visual layout of your actor sheets, you can create empty spaces by leaving the **Field Name** blank. This feature is useful for organizing information and improving readability, as demonstrated in the example images above.
 
+## API or lack there of
+
+the fields are stored in the actor in _flags.lgs-extra-fields-for-star-wars.extraFields_ as an object:
+
+```
+[
+    {
+        "group": "Sanity",
+        "name": "Curret",
+        "value": 0
+    },
+    {
+        "group": "Sanity",
+        "name": "Threshold",
+        "value": 0
+    }
+]
+```
 ## Important Considerations
 
 ### Renaming Groups or Field Names
@@ -60,6 +78,3 @@ This module may not be compatible with other modules that modify the default act
 
 If you encounter any issues or have suggestions for improvements, please [open an issue](https://github.com/Lyinggod/lgs-ffg-star-wars-extra-fields/issues) on the GitHub repository. Contributions are welcome—feel free to submit pull requests or propose new features!
 
----
-
-Thank you for using **Star Wars Extra Fields**! May the Force be with your campaigns.
