@@ -133,9 +133,10 @@ Hooks.on("renderActorSheet", async (app, html, data) => {
   const customFieldGrid = `grid grid-${customFieldQty}col` 
   
   let activeSheet = actor.getFlag("core", "sheetClass");
+  let activeAltSheet = CONFIG.Actor.sheetClasses?.character["starwarsffg.ffgalternateactorsheet"]?.default
   let anchorContainers = "";
   let extraPadding = "";
-  if (activeSheet && activeSheet.toLowerCase() === "starwarsffg.ffgalternateactorsheet") {
+  if (activeAltSheet || (activeSheet && activeSheet.toLowerCase() === "starwarsffg.ffgalternateactorsheet")) {
     anchorContainers = html.find('div.container.stats-block div.container.flex-group-center');
     extraPadding = `style="padding-top:5px;"`;
     const statsBlock = html.find('div.container.stats-block');
