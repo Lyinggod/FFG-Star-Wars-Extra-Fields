@@ -1,6 +1,6 @@
 # Star Wars Extra Fields
 
-This is a module crafted for the FFG Star Wars system in Foundry VTT. It allows you to enhance your actors by adding custom fields beneath their derived values, providing greater depth and customization for your campaigns.
+This is in support of the Genesys RPG when play in he FFG Star Wars system. It allows for the addition of custom fields to actor sheets below the derived stats.
 
 <img src="https://github.com/user-attachments/assets/91f36c04-50cc-4a4a-b932-68ba08b000de" width="500">
 
@@ -69,6 +69,9 @@ the fields are stored in the actor in _flags.lgs-extra-fields-for-star-wars.extr
 ### Renaming Groups or Field Names
 
 Be cautious when renaming **Group Names** or **Field Names**. Doing so will reset any stored data on the actor to 0. Ensure that you intend to reset the data before making such changes.
+
+### Compatibilities
+This has been tested with module Alternative sheet design for FFG Star Wars using included custom actor templates include with that module. However modifications to those templates may affect compatibility.
 
 ### Incompatibilities
 
