@@ -1,6 +1,6 @@
 # Star Wars Extra Fields
 
-This is in support of the Genesys RPG when play in he FFG Star Wars system. It allows for the addition of custom fields to actor sheets below the derived stats.
+This is in support of the Genesys RPG when played in the FFG Star Wars system. It allows for the addition of custom fields to actor sheets below the derived stats.
 
 <img src="https://github.com/user-attachments/assets/91f36c04-50cc-4a4a-b932-68ba08b000de" width="500">
 
